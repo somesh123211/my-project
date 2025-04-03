@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+    background-image: url("background.jpg"); /* Set background image */
+    background-size: cover; /* Cover the full page */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Fixed background */
+    color: white; /* Text color */
+}
+
+/* Style for input fields and button */
+input, button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Button styling */
+button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}

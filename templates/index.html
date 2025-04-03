@@ -1,18 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Addition System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONE WAY SLAB DESIGN</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #FFDBBB; /* Light Peach Background */
+            color: #343a40; /* Dark gray text for readability */
+        }
+        h2, h3 {
+            color: #496580; /* Muted Grayish-Blue Headings */
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        form {
+            background-color: #fff; /* White form background for contrast */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            border: 1px solid #BADDFF; /* Light Blue Form Border */
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #495057; /* Darker gray label text */
+        }
+        input[type="number"],
+        button {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #BADDFF; /* Light Blue Input Border */
+            border-radius: 4px;
+            font-size: 16px;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #BAFFF5; /* Light Cyan Button */
+            color: #343a40; /* Dark gray button text */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #BADDFF; /* Light Blue on button hover */
+            color: #343a40;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #fff; /* White table background */
+            border: 1px solid #BADDFF; /* Light Blue table border */
+        }
+        th, td {
+            border: 1px solid #BADDFF; /* Light Blue table cell border */
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #496580; /* Muted Grayish-Blue table header */
+            color: #fff;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa; /* Very light gray for even rows */
+        }
+        .result-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff; /* White result container */
+            border: 1px solid #BAFFF5; /* Light Cyan result container border */
+            border-radius: 4px;
+            font-size: 16px;
+            color: #343a40; /* Dark gray text for results */
+        }
+        .result-container h3 {
+            color: #496580; /* Muted Grayish-Blue for result headings */
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .result-container div {
+            margin-bottom: 8px;
+        }
+        #showReinforcementBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background-color: #BAFFF5; /* Light Cyan button */
+            color: #343a40; /* Dark gray text */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        #showReinforcementBtn:hover {
+            background-color: #BADDFF; /* Light Blue on hover */
+            color: #343a40;
+        }
+        #reinforcementDiv {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            border: 1px solid #BADDFF; /* Light Blue border */
+        }
+        #reinforcementDiv h3 {
+            text-align: left;
+            color: #496580; /* Muted Grayish-Blue heading */
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        #reinforcementDiv table input[type="number"] {
+            width: 100%;
+            border: 1px solid #BADDFF; /* Light Blue border */
+            border-radius: 4px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form'); // Select all form elements
+
+            forms.forEach(form => {
+                form.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault(); // Prevent the default form submission
+                        // Optionally, you can add other actions here if needed
+                    }
+                });
+            });
+        });
+
+        function showReinforcement() {
+            document.getElementById("reinforcementDiv").style.display = "block";
+            document.getElementById("showReinforcementBtn").style.display = "none";
+        }
+    </script>
 </head>
 <body>
-    <h2>Enter Two Numbers</h2>
+    <h2>ONE WAY SLAB DESIGN</h2>
+
     <form method="post">
-        <input type="number" name="input_value1" placeholder="Enter first number" required>
-        <input type="number" name="input_value2" placeholder="Enter second number" required>
-        <button type="submit">Add</button>
+        <h3>Input Values</h3>
+        <div>
+            <label for="fck">Characteristic strength of concrete(fck):</label>
+            <input type="number" id="fck" name="fck" step="0.01" required value="{{ form_data.fck if form_data.fck else '' }}">
+        </div>
+        <div>
+            <label for="fy">Yield strength of steel (fy):</label>
+            <input type="number" id="fy" name="fy" step="0.01" required value="{{ form_data.fy if form_data.fy else '' }}">
+        </div>
+        <div>
+            <label for="clear_span">Clear Span:</label>
+            <input type="number" id="clear_span" name="clear_span" step="0.01" required value="{{ form_data.clear_span if form_data.clear_span else '' }}">
+        </div>
+        <div>
+            <label for="support_width">Support Width:</label>
+            <input type="number" id="support_width" name="support_width" step="0.01" required value="{{ form_data.support_width if form_data.support_width else '' }}">
+        </div>
+        <div>
+            <label for="depth_ratio">Depth Ratio:</label>
+            <input type="number" id="depth_ratio" name="depth_ratio" step="0.01" required value="{{ form_data.depth_ratio if form_data.depth_ratio else '' }}">
+        </div>
+        <div>
+            <label for="clear_cover">Clear Cover:</label>
+            <input type="number" id="clear_cover" name="clear_cover" step="0.01" required value="{{ form_data.clear_cover if form_data.clear_cover else '' }}">
+        </div>
+        <div>
+            <label for="dia_bar">Diameter of Bar (General Calculation):</label>
+            <input type="number" id="dia_bar" name="dia_bar" step="0.01" required value="{{ form_data.dia_bar if form_data.dia_bar else '' }}">
+        </div>
+        <button type="submit">Calculate Initial</button>
     </form>
 
-    {% if result is not none %}
-        <h3>Sum: {{ result }}</h3>
+    {% if result %}
+        <div class="result-container">
+            <h3>Initial Calculation Results</h3>
+            <div>{{ result | safe }}</div>
+        </div>
     {% endif %}
+
+    {% if show_load_inputs %}
+    <form method="post">
+        <h3>Load Calculation Inputs</h3>
+        <div>
+            <label for="live_load">Live Load:</label>
+            <input type="number" id="live_load" name="live_load" step="0.01" required value="{{ form_data.live_load if form_data.live_load else '' }}">
+        </div>
+        <div>
+            <label for="floor_finish">Floor Finish:</label>
+            <input type="number" id="floor_finish" name="floor_finish" step="0.01" required value="{{ form_data.floor_finish if form_data.floor_finish else '' }}">
+        </div>
+        <input type="hidden" name="fck" value="{{ form_data.fck if form_data.fck else '' }}">
+        <input type="hidden" name="fy" value="{{ form_data.fy if form_data.fy else '' }}">
+        <input type="hidden" name="clear_span" value="{{ form_data.clear_span if form_data.clear_span else '' }}">
+        <input type="hidden" name="support_width" value="{{ form_data.support_width if form_data.support_width else '' }}">
+        <input type="hidden" name="depth_ratio" value="{{ form_data.depth_ratio if form_data.depth_ratio else '' }}">
+        <input type="hidden" name="clear_cover" value="{{ form_data.clear_cover if form_data.clear_cover else '' }}">
+        <input type="hidden" name="dia_bar" value="{{ form_data.dia_bar if form_data.dia_bar else '' }}">
+        <button type="submit">Calculate Loads</button>
+    </form>
+    {% endif %}
+
+    {% if load_results %}
+        <div class="result-container">
+            <h3>Load Calculation Results</h3>
+            <div>{{ load_results | safe }}</div>
+        </div>
+    {% endif %}
+
+    {% if table_results %}
+    <h3>Bending Moment & Shear Force</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Fixed Support</th>
+                <th>Simply Supported</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Muc (kN·m)</td>
+                <td>{{ table_results["Fixed Support"]["Muc"] }}</td>
+                <td>{{ table_results["Simply Supported"]["Muc"] }}</td>
+            </tr>
+            <tr>
+                <td>Mus (kN·m)</td>
+                <td>{{ table_results["Fixed Support"]["Mus"] }}</td>
+                <td>{{ table_results["Simply Supported"]["Mus"] }}</td>
+            </tr>
+            <tr>
+                <td>Vu (kN)</td>
+                <td>{{ table_results["Fixed Support"]["Shear"] }}</td>
+                <td>{{ table_results["Simply Supported"]["Shear"] }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if limiting_mr_result %}
+        <div class="result-container">
+            <h3>Limiting Moment of Resistance</h3>
+            <div>{{ limiting_mr_result | safe }}</div>
+        </div>
+    {% endif %}
+
+    <button type="button" id="showReinforcementBtn" onclick="showReinforcement()">Show Main Reinforcement Table</button>
+    <div id="reinforcementDiv" style="display: none;">
+        <h3>Main Reinforcement</h3>
+        <form method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Fixed Support</th>
+                        <th>Simply Supported</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ast</td>
+                        <td>{{ ast_fixed_support or "Pending Calculation" }}</td>
+                        <td>{{ ast_simply_supported or "Pending Calculation" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dia Bar (mm)</td>
+                        <td><input type="number" name="dia_bar_fixed" step="0.01" value="{{ form_data.dia_bar_fixed if form_data.dia_bar_fixed else '' }}" required></td>
+                        <td><input type="number" name="dia_bar_simply" step="0.01" value="{{ form_data.dia_bar_simply if form_data.dia_bar_simply else '' }}" required></td>
+                    </tr>
+                    <tr>
+                        <td>Spacing (mm)</td>
+                        <td>{{ spacing_fixed or "Pending" }}</td>
+                        <td>{{ spacing_simply or "Pending" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Rounded Spacing (mm)</td>
+                        <td>{{ rounded_spacing_fixed or "Pending" }}</td>
+                        <td>{{ rounded_spacing_simply or "Pending" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Actual AST (mm²)</td>
+                        <td>{{ actual_ast_fixed or "Pending" }}</td>
+                        <td>{{ actual_ast_simply or "Pending" }}</td>
+                    </tr>
+                    <tr>
+                        <td>Conclusion</td>
+                        <td>{{ conclusion_fixed or "Pending" }}</td>
+                        <td>{{ conclusion_simply or "Pending" }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="hidden" name="fck" value="{{ form_data.fck if form_data.fck else '' }}">
+            <input type="hidden" name="fy" value="{{ form_data.fy if form_data.fy else '' }}">
+            <input type="hidden" name="clear_span" value="{{ form_data.clear_span if form_data.clear_span else '' }}">
+            <input type="hidden" name="support_width" value="{{ form_data.support_width if form_data.support_width else '' }}">
+            <input type="hidden" name="depth_ratio" value="{{ form_data.depth_ratio if form_data.depth_ratio else '' }}">
+            <input type="hidden" name="clear_cover" value="{{ form_data.clear_cover if form_data.clear_cover else '' }}">
+            <input type="hidden" name="dia_bar" value="{{ form_data.dia_bar if form_data.dia_bar else '' }}">
+            <input type="hidden" name="live_load" value="{{ form_data.live_load if form_data.live_load else '' }}">
+            <input type="hidden" name="floor_finish" value="{{ form_data.floor_finish if form_data.floor_finish else '' }}">
+            <input type="hidden" name="dia_bar_fixed" value="{{ form_data.dia_bar_fixed if form_data.dia_bar_fixed else '' }}">
+            <input type="hidden" name="dia_bar_simply" value="{{ form_data.dia_bar_simply if form_data.dia_bar_simply else '' }}">
+            <button type="submit">Update Table</button>
+        </form>
+    </div>
+
+    {% if distribution_reinf %}
+    <h3 style="margin-top: 30px; margin-bottom: 15px; text-align: center;">Distribution Reinforcement</h3>
+    <div class="result-container">
+        <div style="margin-bottom: 10px;"><b>ASTD:</b> {{ distribution_reinf }}</div>
+        <form method="post" style="margin-bottom: 15px;">
+            <label for="dia_bar_dist">Distribution Bar Diameter (mm):</label>
+            <input type="number" id="dia_bar_dist" name="dia_bar_dist" step="0.01" required value="{{ form_data.dia_bar_dist if form_data.dia_bar_dist else '' }}">
+            <button type="submit">Calculate Distribution Spacing</button>
+            <input type="hidden" name="fck" value="{{ form_data.fck if form_data.fck else '' }}">
+            <input type="hidden" name="fy" value="{{ form_data.fy if form_data.fy else '' }}">
+            <input type="hidden" name="clear_span" value="{{ form_data.clear_span if form_data.clear_span else '' }}">
+            <input type="hidden" name="support_width" value="{{ form_data.support_width if form_data.support_width else '' }}">
+            <input type="hidden" name="depth_ratio" value="{{ form_data.depth_ratio if form_data.depth_ratio else '' }}">
+            <input type="hidden" name="clear_cover" value="{{ form_data.clear_cover if form_data.clear_cover else '' }}">
+            <input type="hidden" name="dia_bar" value="{{ form_data.dia_bar if form_data.dia_bar else '' }}">
+            <input type="hidden" name="live_load" value="{{ form_data.live_load if form_data.live_load else '' }}">
+            <input type="hidden" name="floor_finish" value="{{ form_data.floor_finish if form_data.floor_finish else '' }}">
+            <input type="hidden" name="dia_bar_fixed" value="{{ form_data.dia_bar_fixed if form_data.dia_bar_fixed else '' }}">
+            <input type="hidden" name="dia_bar_simply" value="{{ form_data.dia_bar_simply if form_data.dia_bar_simply else '' }}">
+        </form>
+
+        <div><b>Spacing:</b> {{ distribution_spacing }}</div>
+        <div><b>Rounded Spacing :</b> {{ distribution_rounded_spacing }}</div>
+        <div><b>Conclusion:</b> {{ distribution_conclusion }}</div>
+    </div>
+    {% endif %}
+
+    <script>
+        function showReinforcement() {
+            document.getElementById("reinforcementDiv").style.display = "block";
+            document.getElementById("showReinforcementBtn").style.display = "none";
+        }
+    </script>
+
+<div class="footer">
+    Designed and Developed by <i>Somesh Ninawe</i>
+  </div>
+
+
 </body>
 </html>
